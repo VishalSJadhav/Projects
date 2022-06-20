@@ -3,35 +3,29 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 const Calculator = () => {
-    const [state, setState] = useState([]);
+    const [state, setState] = useState({
+        input: ""
+    });
 
     const clickNum = (e) => {
-        state.push(e.target.value);
-        console.log(state.join(""));
+        setState({...state, input: state.input + e.target.value});
     }
     
     const clickSubmit = () => {
-        var result = state.join("");
-        // eslint-disable-next-line
-        console.log(eval(result));
-        setState([]);
+        //eslint-disable-next-line
+        setState({...state, input: eval(state.input)});
     }
-    /*const clickBack = () => {
-        state.pop();
-        console.log(state.join(""));
-    }*/
+
     const clickClear = () => {
-        setState([]);
-        console.log(state.join(""));
+        setState({input:""});
     }
     const inputFieldValue = (e) =>{
-        setState(e.target.value);
-        console.log(setState);
+        setState({...state, input: e.target.value});
     }
     return (
       <div className="container">
       <div className="input">
-        <input type="text" onChange ={inputFieldValue}/>
+        <input type="text" value={state.input} onChange ={inputFieldValue}/>
       </div>
       <div className="operators">
           <button className="add" onClick={clickNum} value={'+'}>+</button>
